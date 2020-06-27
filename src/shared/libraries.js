@@ -27,7 +27,7 @@ export const LIBRARIES = [
             name: 'B'
           }
         }
-      }
+      },
       readersTracking: {
         sheet: {
           gid: 722092815,
