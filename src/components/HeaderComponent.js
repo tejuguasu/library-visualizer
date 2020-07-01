@@ -24,7 +24,7 @@ class Header extends Component{
             <React.Fragment>
                 <Navbar dark expand="md">
                 <div className="container">
-                    <NavbarToggler onClick={this.toggleNav} />
+                    <NavbarToggler className="mr-2" onClick={this.toggleNav} />
                     <NavbarBrand className="mr-auto" href="/">
                         <img src="assets/images/logo.jpg" height="30" alt="Library Visualizer" />
                     </NavbarBrand>
@@ -37,7 +37,7 @@ class Header extends Component{
                             </NavItem>
                             <NavItem>
                                 <NavLink className="nav-link" to="/configuration">
-                                    <span className="fa fa-cog fa-lg"> Menu</span>
+                                    <span className="fa fa-cog fa-lg"> Configuration</span>
                                 </NavLink>
                             </NavItem>
                         </Nav>
@@ -47,7 +47,10 @@ class Header extends Component{
                 <Jumbotron>
                     <div className="container">
                         <div className="row row-header">
-                            <div className="col-12 col-sm-6">
+                            <div className="col-12 col-md-3">
+                                <img src="assets/images/logo.jpg" width="100%" alt="Library Visualizer" />
+                            </div>
+                            <div className="col-12 col-sm-9">
                                 <h1>Library Visualizer</h1>
                                 <p>Find the resource you are looking for</p>
                             </div>

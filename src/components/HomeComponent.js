@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import { Loading } from './LoadingComponent';
 import { FadeTransform } from 'react-animation-components';
+import Item from '../item/Item';
 
 function RenderSearch({userConfiguration, isLoading, errMess}){
     if (isLoading){
@@ -45,6 +46,9 @@ function Home(props){
                 <div className="col-12">
                     <RenderSearch userConfiguration={props.userConfiguration} isLoading={props.userConfigurationIsLoading} errMess={props.userConfigurationErrMess} />
                 </div>
+            </div>
+            <div className="row">
+                <Item item={({ title: 'This is a test', author: 'Uri Yael' })} />
             </div>
         </div>
     );

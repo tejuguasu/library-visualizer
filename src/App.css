@@ -11,19 +11,19 @@
 }
 
 .footer{
-  background-color: #D1C4E9;
+  background-color: #eac67a;
   margin:0px auto;
   padding: 20px 0px 20px 0px;
 }
 .jumbotron {
   padding:70px 30px 70px 30px;
   margin:0px auto;
-  background: #9575CD ;
+  background: #984b43 ;
   color:floralwhite;
 }
 
 .navbar-dark {
-  background-color: #512DA8;
+  background-color: #233237;
 }
 
 .page-enter {
@@ -47,4 +47,20 @@
   opacity: 0.01;
   transform: translateX(100%);
   transition: all 300ms ease-out;
+}
+
+.library-item-author {
+  background: #233237;
+  color: lightgray;
+  font-weight: bolder;
+  margin:0px auto;
+  padding: 5px;
+}
+
+.library-item-title {
+  background: lightgray;
+  color: #233237;
+  font-weight: bolder;
+  margin: 0px;
+  padding: 5px;
 }
