@@ -1,5 +1,6 @@
 import * as ActionTypes from './userConfigurationActions';
 import { USER_CONFIGURATION } from '../../shared/userConfiguration';
+import { itemsFetch } from '../../item/state/itemReducer';
 
 export const UserConfiguration = (state = {
     isLoading: true,
@@ -7,20 +8,28 @@ export const UserConfiguration = (state = {
     userConfiguration: {}
 }, action) => {
 switch (action.type) {
-    case ActionTypes.USERCONFIGURATION_ADD:
-        return {...state, isLoading: false, errMess: null, userConfiguration: USER_CONFIGURATION};
-
-    case ActionTypes.USERCONFIGURATION_INITIALIZE:
-        return { ...state, userConfiguration: action.payload };
+    case ActionTypes.USERCONFIGURATION_SET:
+        return {...state, isLoading: false, errMess: null, userConfiguration: action.payload};
 
     default:
         return state;
 }
 }
 
-export const userConfigurationAdd = () => ({
-    type: ActionTypes.USERCONFIGURATION_ADD
-});
+export const userConfigurationSet = (configuration = USER_CONFIGURATION) => {
+    return (dispatch) => {
+        dispatch({
+            type: ActionTypes.USERCONFIGURATION_SET,
+            payload: configuration
+        });
+        if (configuration.library){
+            return dispatch(itemsFetch(configuration.library))
+                .catch(error => {
+                    console.log('Error ', error.message)
+                });
+        };
+    }
+};
 
 export const userConfigurationInitialize = () => (dispatch, getState) => {
     const { userConfiguration, libraries } = getState();
@@ -35,11 +44,8 @@ export const userConfigurationInitialize = () => (dispatch, getState) => {
     }
 
     if (changed){
-        dispatch({
-            type: ActionTypes.USERCONFIGURATION_INITIALIZE,
-            payload: {
-                library: library
-            }
-        });
+        dispatch(userConfigurationSet({
+            library: library
+        }));
     }
 };

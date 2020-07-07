@@ -1,1 +1,1 @@
-export const ITEM_ADD = 'ITEM_ADD';
+export const ITEMS_ADD = 'ITEMS_ADD';

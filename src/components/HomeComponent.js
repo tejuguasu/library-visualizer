@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 import { Loading } from './LoadingComponent';
 import { FadeTransform } from 'react-animation-components';
+import { Fade, Stagger }  from 'react-animation-components';
 import Item from '../item/Item';
 
 function RenderSearch({userConfiguration, isLoading, errMess}){
@@ -16,7 +17,7 @@ function RenderSearch({userConfiguration, isLoading, errMess}){
         );
     }
     else {
-        if (userConfiguration.userConfiguration.library == null){
+        if (userConfiguration.library == null){
             return (
                 <h4>No library selected</h4>
             )
@@ -29,13 +30,41 @@ function RenderSearch({userConfiguration, isLoading, errMess}){
                 }}>
                     <Card>
                         <CardBody>
-                            <CardTitle>Search in {userConfiguration.userConfiguration.library.name}</CardTitle>
+                            <CardTitle>Search in {userConfiguration.library.name}</CardTitle>
                             <CardText>Some search components will be here</CardText>
                         </CardBody>
                     </Card>
                 </FadeTransform>
             );
         }
+    }
+}
+
+function RenderItems({items, isLoading, errMess}){
+    if (isLoading){
+        return (
+            <Loading />
+        );
+    }
+    else if (errMess) {
+        return (
+            <h4>{errMess}</h4>
+        );
+    }
+    else {
+        return (
+            <Stagger in>
+                { items.map((item) => {
+                    return(
+                        <div className="col-12 col-md-3">
+                            <Fade in>
+                                <Item author={item.author} title={item.title} />
+                            </Fade>
+                        </div>
+                    );
+                })}
+            </Stagger>
+        );
     }
 }
 
@@ -48,7 +77,8 @@ function Home(props){
                 </div>
             </div>
             <div className="row">
-                <Item item={({ title: 'This is a test', author: 'Uri Yael' })} />
+                <Item title="This is a test" author="Uri Yael" />
+                <RenderItems items={props.items} isLoading={props.itemsIsLoading} errMess={props.itemsErrMess} />
             </div>
         </div>
     );

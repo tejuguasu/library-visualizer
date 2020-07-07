@@ -2,12 +2,18 @@ export const LIBRARIES = [
     {
       id: 0,
       name: 'Biblioteca',
-      url: 'https://docs.google.com/spreadsheets/d/1lZCJttcCspeHjTGfsjGy7VYvi-kEqxlcteF7lOQUYKI',
+      spreadsheetId: '1lZCJttcCspeHjTGfsjGy7VYvi-kEqxlcteF7lOQUYKI',
+      clientId: '191135084193-hl3f64o9slp3rmdfdsfouose42l673u9.apps.googleusercontent.com',
+      apiKey: 'AIzaSyCoHBbrOs12Ji_eZRM4B6Hy-R73J_kv64Y',
+      discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+      scopes: 'https://www.googleapis.com/auth/spreadsheets.readonly',
       items: {
         sheet: {
           gid: 0,
           name: 'Biblioteca Física',
           startingRow: 2,
+          leftmostColumn: 'A',
+          rightmostColumn: 'F',
           columns: {
             uuid: 'A',
             title: 'E',

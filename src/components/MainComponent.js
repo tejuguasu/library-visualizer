@@ -10,18 +10,22 @@ import LibraryDetails from './LibraryDetailsComponent';
 import Library from '../library/Library';
 import UserConfiguration from '../userConfiguration/UserConfiguration';
 import { librariesAdd } from '../library/state/libraryReducer';
-import { userConfigurationAdd, userConfigurationInitialize } from '../userConfiguration/state/userConfigurationReducer';
+import { itemsAdd, itemsFetch } from '../item/state/itemReducer';
+import { userConfigurationSet, userConfigurationInitialize } from '../userConfiguration/state/userConfigurationReducer';
 
 const mapStateToProps = state => {
     return {
         libraries: state.libraries,
-        userConfiguration: state.userConfiguration
+        userConfiguration: state.userConfiguration,
+        items: state.items
     }
 };
 
 const mapDispatchToProps = (dispatch) => ({
     librariesAdd: () => {dispatch(librariesAdd())},
-    userConfigurationAdd: () => {dispatch(userConfigurationAdd())},
+    itemsAdd: () => {dispatch(itemsAdd())},
+    itemsFetch: () => {dispatch(itemsFetch())},
+    userConfigurationSet: () => {dispatch(userConfigurationSet())},
     userConfigurationInitialize: () => {dispatch(userConfigurationInitialize())},
 });
 
@@ -29,7 +33,7 @@ class Main extends Component {
 
     componentDidMount(){
         this.props.librariesAdd();
-        this.props.userConfigurationAdd();
+        this.props.userConfigurationSet();
     }
 
     componentDidUpdate(){
@@ -40,7 +44,8 @@ class Main extends Component {
 
         const HomePage = () => {
             return(
-                <Home userConfiguration={this.props.userConfiguration} userConfigurationIsLoading={this.props.userConfiguration.isLoading} userConfigurationErrMess={this.props.userConfiguration.errMess}
+                <Home userConfiguration={this.props.userConfiguration.userConfiguration} userConfigurationIsLoading={this.props.userConfiguration.isLoading} userConfigurationErrMess={this.props.userConfiguration.errMess}
+                      items={this.props.items} itemsIsLoading={this.props.items.isLoading} itemsErrMess={this.props.items.errMess}
                  />
             );
         };
