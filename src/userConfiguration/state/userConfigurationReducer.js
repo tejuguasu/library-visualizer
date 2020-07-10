@@ -23,11 +23,8 @@ export const userConfigurationSet = (configuration = USER_CONFIGURATION) => {
             payload: configuration
         });
         if (configuration.library){
-            return dispatch(itemsFetch(configuration.library))
-                .catch(error => {
-                    console.log('Error ', error.message)
-                });
-        };
+            return dispatch(itemsFetch(configuration.library));
+        }
     }
 };
 

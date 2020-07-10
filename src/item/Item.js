@@ -5,16 +5,19 @@ class Item extends PureComponent{
 
     render(){
         if (this.props.item != null){
+            const { author, title } = this.props.item;
             return (
-                <div className="container">
+                <div className="container library-item">
                     <div className="row">
-                        <div className="col-12 col-md-4">
-                            <h3 className="library-item-author">{ this.getValue(this.props.author) }</h3>
+                        <div className="col-12 col-md-4 library-item-author">
+                            <p>{ this.getValue(author) }</p>
                         </div>
-                        <div className="col-12 col-md-8">
-                            <h3 className="library-item-title">{ this.getTitle(this.props.title) }</h3>
+                        <div className="col-12 col-md-8 library-item-title">
+                            <p>{ this.getValue(title) }</p>
                         </div>
-                        <div className="col-12">
+                    </div>
+                    <div className="row">
+                        <div className="col-12 col-md-12">
                             <p>More information will be populated here</p>
                         </div>
                     </div>

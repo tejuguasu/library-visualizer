@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import { Loading } from './LoadingComponent';
 import { FadeTransform } from 'react-animation-components';
 import { Fade, Stagger }  from 'react-animation-components';
@@ -56,11 +56,11 @@ function RenderItems({items, isLoading, errMess}){
             <Stagger in>
                 { items.map((item) => {
                     return(
-                        <div className="col-12 col-md-3">
-                            <Fade in>
-                                <Item author={item.author} title={item.title} />
-                            </Fade>
-                        </div>
+                        <Fade in>
+                            <div className="col-12 col-md-4">
+                                <Item item={item} />
+                            </div>
+                        </Fade>
                     );
                 })}
             </Stagger>
@@ -77,7 +77,6 @@ function Home(props){
                 </div>
             </div>
             <div className="row">
-                <Item title="This is a test" author="Uri Yael" />
                 <RenderItems items={props.items} isLoading={props.itemsIsLoading} errMess={props.itemsErrMess} />
             </div>
         </div>

@@ -12,6 +12,7 @@ import UserConfiguration from '../userConfiguration/UserConfiguration';
 import { librariesAdd } from '../library/state/libraryReducer';
 import { itemsAdd, itemsFetch } from '../item/state/itemReducer';
 import { userConfigurationSet, userConfigurationInitialize } from '../userConfiguration/state/userConfigurationReducer';
+import GoogleLogin from '../googleLogin/GoogleLogin';
 
 const mapStateToProps = state => {
     return {
@@ -45,7 +46,7 @@ class Main extends Component {
         const HomePage = () => {
             return(
                 <Home userConfiguration={this.props.userConfiguration.userConfiguration} userConfigurationIsLoading={this.props.userConfiguration.isLoading} userConfigurationErrMess={this.props.userConfiguration.errMess}
-                      items={this.props.items} itemsIsLoading={this.props.items.isLoading} itemsErrMess={this.props.items.errMess}
+                      items={this.props.items.items} itemsIsLoading={this.props.items.isLoading} itemsErrMess={this.props.items.errMess}
                  />
             );
         };
@@ -62,6 +63,7 @@ class Main extends Component {
         return (
             <div>
                 <Header />
+                <GoogleLogin />
                 <TransitionGroup>
                     <CSSTransition key={this.props.location.key} classNames="page" timeout={300}>
                         <Switch>

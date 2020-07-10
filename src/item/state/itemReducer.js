@@ -1,5 +1,5 @@
 import * as ActionTypes from './itemActions';
-import gapi from 'gapi';
+import { gapi } from 'gapi-script'
 
 export const Items = (state = {
     isLoading: true,
@@ -24,44 +24,66 @@ export const itemsAdd = (items) => ({
 export const itemsFetch = (library) => {
     var sheet = library.items.sheet;
     return (dispatch) => {
-        window.gapi.load('client:auth2', () => {
-            window.gapi.client.init({
+        gapi.load('client:auth2', () => {
+            gapi.client.init({
                 apiKey: library.apiKey,
                 clientId: library.clientId,
                 discoveryDocs: library.discoveryDocs,
                 scope: library.scopes
-            })}
-        )
-        .then(response => {
-            window.gapi.client.sheets.spreadsheets.values.get({
-                spreadsheetId: library.spreadsheetId,
-                range: sheet.name + '!' + sheet.leftmostColumn + sheet.startingRow + ':' + sheet.rightmostColumn + sheet.startingRow,
             })
             .then(response => {
-                var range = response.result;
-                if (range.values.length > 0) {
-                    for (var i = 0; i < range.values.length; i++) {
-                        var row = range.values[i];
-                        // Print columns A and E, which correspond to indices 0 and 4.
-                        console.log(row[0] + ', ' + row[4]);
+                gapi.client.sheets.spreadsheets.values.get({
+                    spreadsheetId: library.spreadsheetId,
+                    range: sheet.name + '!' + sheet.leftmostColumn + sheet.startingRow + ':' + sheet.rightmostColumn,
+                })
+                .then(response => {
+                    var range = response.result;
+                    if (range.values.length > 0) {
+                        var items = [];
+                        var indexUuid = getColumnNumber(sheet.columns.uuid) - 1;
+                        var indexTitle = getColumnNumber(sheet.columns.title) - 1;
+                        var indexAuthor = getColumnNumber(sheet.columns.author) - 1;
+                        var indexIsbn = getColumnNumber(sheet.columns.ISBN) - 1;
+                        var indexImageUrl = getColumnNumber(sheet.columns.imageUrl) - 1;
+                        for (var i = 0; i < range.values.length; i++) {
+                            var row = range.values[i];
+                            items.push({
+                                uuid: row[indexUuid] ? row[indexUuid] : '',
+                                title: row[indexTitle] ? row[indexTitle] : '',
+                                author: row[indexAuthor] ? row[indexAuthor] : '',
+                                ISBN: row[indexIsbn] ? row[indexIsbn] : '',
+                                imageUrl: row[indexImageUrl] ? row[indexImageUrl] : ''
+                            });
+                        }
+                        return items;
                     }
-                }
-                else {
-                    throw new Error('No data found.');
-                }
-            }, response => {
-                var error = new Error(response.result.error.message);
-                error.response = response.result.error;
-                throw error;
+                    else {
+                        throw new Error('No data found.');
+                    }
+                }, response => {
+                    var error = new Error(response.result.error.message);
+                    error.response = response.result.error;
+                    throw error;
+                })
+                .then(items => dispatch(itemsAdd(items)))
+            }, error => {
+                var errmess = new Error(JSON.stringify(error));
+                throw errmess;
             })
-        }, error => {
-            var errmess = new Error(JSON.stringify(error));
-            throw errmess;
-        })
-        .then(response => response.json())
-        .then(items => dispatch(itemsAdd(items)))
-        .catch(error => {
-            console.log('Error ', error.message)
+            .then(response => {
+                 return response.json()
+             })
+            .catch(error => {
+                console.log('Error ', error.message)
+            });
         });
     };
 };
+
+function getColumnNumber(columnLetters) {
+    var val = columnLetters.toUpperCase();
+    var base = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', i, j, result = 0;
+    for (i = 0, j = val.length - 1; i < val.length; i += 1, j -= 1)
+      result += Math.pow(base.length, j) * (base.indexOf(val[i]) + 1);
+    return result;
+  };
