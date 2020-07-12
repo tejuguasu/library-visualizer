@@ -12,13 +12,15 @@ import UserConfiguration from '../userConfiguration/UserConfiguration';
 import { librariesAdd } from '../library/state/libraryReducer';
 import { itemsAdd, itemsFetch } from '../item/state/itemReducer';
 import { userConfigurationSet, userConfigurationInitialize } from '../userConfiguration/state/userConfigurationReducer';
+import { searchLookup } from '../search/state/searchReducer';
 import GoogleLogin from '../googleLogin/GoogleLogin';
 
 const mapStateToProps = state => {
     return {
         libraries: state.libraries,
         userConfiguration: state.userConfiguration,
-        items: state.items
+        items: state.items,
+        search: state.search
     }
 };
 
@@ -28,6 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
     itemsFetch: () => {dispatch(itemsFetch())},
     userConfigurationSet: () => {dispatch(userConfigurationSet())},
     userConfigurationInitialize: () => {dispatch(userConfigurationInitialize())},
+    searchLookup: (search) => {dispatch(searchLookup(search))}
 });
 
 class Main extends Component {
@@ -47,6 +50,7 @@ class Main extends Component {
             return(
                 <Home userConfiguration={this.props.userConfiguration.userConfiguration} userConfigurationIsLoading={this.props.userConfiguration.isLoading} userConfigurationErrMess={this.props.userConfiguration.errMess}
                       items={this.props.items.items} itemsIsLoading={this.props.items.isLoading} itemsErrMess={this.props.items.errMess}
+                      search={this.props.search} searchLookup={this.props.searchLookup}
                  />
             );
         };

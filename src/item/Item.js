@@ -1,4 +1,5 @@
 import React, { Component, PureComponent } from 'react';
+import { Card, CardImg, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap';
 
 class Item extends PureComponent{
     getValue = (value) => value !== undefined && value !== null ? value : '';
@@ -7,21 +8,19 @@ class Item extends PureComponent{
         if (this.props.item != null){
             const { author, title } = this.props.item;
             return (
-                <div className="container library-item">
-                    <div className="row">
-                        <div className="col-12 col-md-4 library-item-author">
-                            <p>{ this.getValue(author) }</p>
-                        </div>
-                        <div className="col-12 col-md-8 library-item-title">
+                <Card className="library-item">
+                    <CardBody>
+                        <CardTitle className="library-item-title">
                             <p>{ this.getValue(title) }</p>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-12 col-md-12">
+                        </CardTitle>
+                        <CardSubtitle className="library-item-author">
+                            <p>{ this.getValue(author) }</p>
+                        </CardSubtitle>
+                        <CardText>
                             <p>More information will be populated here</p>
-                        </div>
-                    </div>
-                </div>
+                        </CardText>
+                    </CardBody>
+                </Card>
             );
         }
         else{
