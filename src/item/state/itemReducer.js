@@ -49,11 +49,11 @@ export const itemsFetch = (library) => {
                         for (var i = 0; i < range.values.length; i++) {
                             var row = range.values[i];
                             var item = {
-                                uuid: row[indexUuid] ? row[indexUuid] : '',
-                                title: row[indexTitle] ? row[indexTitle] : '',
-                                author: row[indexAuthor] ? row[indexAuthor] : '',
-                                ISBN: row[indexIsbn] ? row[indexIsbn] : '',
-                                imageUrl: row[indexImageUrl] ? row[indexImageUrl] : ''
+                                uuid: row[indexUuid] ?? '',
+                                title: row[indexTitle] ?? '',
+                                author: row[indexAuthor] ?? '',
+                                ISBN: row[indexIsbn] ?? '',
+                                imageUrl: row[indexImageUrl] ?? ''
                             };
                             item.title_plain = makePlain(item.title);
                             item.author_plain = makePlain(item.author);

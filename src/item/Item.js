@@ -6,7 +6,7 @@ class Item extends PureComponent{
 
     render(){
         if (this.props.item != null){
-            const { author, title } = this.props.item;
+            const { author, title, ISBN } = this.props.item;
             return (
                 <Card className="library-item">
                     <CardBody>
@@ -17,6 +17,7 @@ class Item extends PureComponent{
                             <p>{ this.getValue(author) }</p>
                         </CardSubtitle>
                         <CardText>
+                            <p>ISBN: { this.getValue(ISBN) }</p>
                             <p>More information will be populated here</p>
                         </CardText>
                     </CardBody>
