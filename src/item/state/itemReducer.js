@@ -22,6 +22,28 @@ export const itemsAdd = (items) => ({
     payload: items
 });
 
+export const itemsFetchOpenLibrary = (item) => (dispatch, getState) => {
+    const { items } = getState();
+
+    if (item.openLibraryInfoUrl) {
+        dispatch(itemsAdd(items));
+    }
+    else {
+        fetch('https://openlibrary.org/api/books?format=json&bibkeys=ISBN:'+item.ISBN_plain)
+        .then(response => {
+            return response.json();
+        })
+        .then(json => {
+            if (json["ISBN:"+item.ISBN_plain])
+                item.openLibraryInfoUrl = json["ISBN:"+item.ISBN_plain].info_url;
+            dispatch(itemsAdd(items));
+        })
+        .catch(error => {
+            console.error('Error:', error)
+        });
+    }
+};
+
 export const itemsFetch = (library) => {
     var sheet = library.items.sheet;
     return (dispatch) => {
@@ -57,7 +79,7 @@ export const itemsFetch = (library) => {
                             };
                             item.title_plain = makePlain(item.title);
                             item.author_plain = makePlain(item.author);
-                            item.ISBN_plain = makePlain(item.ISBN);
+                            item.ISBN_plain = makePlain(item.ISBN).replace(/ /g,'');
                             items.push(item);
                         }
                         return items;

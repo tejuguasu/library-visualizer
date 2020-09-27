@@ -10,7 +10,7 @@ import LibraryDetails from './LibraryDetailsComponent';
 import Library from '../library/Library';
 import UserConfiguration from '../userConfiguration/UserConfiguration';
 import { librariesAdd } from '../library/state/libraryReducer';
-import { itemsAdd, itemsFetch } from '../item/state/itemReducer';
+import { itemsAdd, itemsFetch, itemsFetchOpenLibrary } from '../item/state/itemReducer';
 import { userConfigurationSet, userConfigurationInitialize } from '../userConfiguration/state/userConfigurationReducer';
 import { searchLookup } from '../search/state/searchReducer';
 import GoogleLogin from '../googleLogin/GoogleLogin';
@@ -28,6 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
     librariesAdd: () => {dispatch(librariesAdd())},
     itemsAdd: () => {dispatch(itemsAdd())},
     itemsFetch: () => {dispatch(itemsFetch())},
+    itemsFetchOpenLibrary: (isbn) => {dispatch(itemsFetchOpenLibrary(isbn))},
     userConfigurationSet: () => {dispatch(userConfigurationSet())},
     userConfigurationInitialize: () => {dispatch(userConfigurationInitialize())},
     searchLookup: (search) => {dispatch(searchLookup(search))}
@@ -51,6 +52,7 @@ class Main extends Component {
                 <Home userConfiguration={this.props.userConfiguration.userConfiguration} userConfigurationIsLoading={this.props.userConfiguration.isLoading} userConfigurationErrMess={this.props.userConfiguration.errMess}
                       items={this.props.items.items} itemsIsLoading={this.props.items.isLoading} itemsErrMess={this.props.items.errMess}
                       search={this.props.search} searchLookup={this.props.searchLookup}
+                      itemsFetchOpenLibrary={this.props.itemsFetchOpenLibrary}
                  />
             );
         };
