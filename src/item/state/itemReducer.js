@@ -22,7 +22,7 @@ export const itemsAdd = (items) => ({
     payload: items
 });
 
-export const itemsFetchOpenLibrary = (item) => (dispatch, getState) => {
+export const itemsViewInOpenLibrary = (item) => (dispatch, getState) => {
     const { items } = getState();
 
     if (item.openLibraryInfoUrl) {
@@ -35,8 +35,7 @@ export const itemsFetchOpenLibrary = (item) => (dispatch, getState) => {
         })
         .then(json => {
             if (json["ISBN:"+item.ISBN_plain])
-                item.openLibraryInfoUrl = json["ISBN:"+item.ISBN_plain].info_url;
-            dispatch(itemsAdd(items));
+                window.open(json["ISBN:"+item.ISBN_plain].info_url, "_blank");
         })
         .catch(error => {
             console.error('Error:', error)

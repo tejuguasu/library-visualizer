@@ -4,7 +4,7 @@ import { Fade, Stagger }  from 'react-animation-components';
 import Item from '../item/Item';
 import Search from '../search/Search';
 
-function RenderItems({items, isLoading, errMess, itemsFetchOpenLibrary}){
+function RenderItems({items, isLoading, errMess, itemsViewInOpenLibrary}){
     if (isLoading){
         return (
             <Loading />
@@ -22,7 +22,7 @@ function RenderItems({items, isLoading, errMess, itemsFetchOpenLibrary}){
                     return(
                         <Fade in>
                             <div className="col-12 col-md-4">
-                                <Item item={item} itemsFetchOpenLibrary={itemsFetchOpenLibrary} />
+                                <Item item={item} itemsViewInOpenLibrary={itemsViewInOpenLibrary} />
                             </div>
                         </Fade>
                     );
@@ -43,7 +43,7 @@ function Home(props){
             </div>
             <div className="row">
                 <RenderItems items={props.search.items} isLoading={props.itemsIsLoading} errMess={props.itemsErrMess}
-                             itemsFetchOpenLibrary={props.itemsFetchOpenLibrary}
+                             itemsViewInOpenLibrary={props.itemsViewInOpenLibrary}
                     />
             </div>
         </div>

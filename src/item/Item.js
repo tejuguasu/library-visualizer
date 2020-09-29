@@ -7,12 +7,6 @@ class Item extends PureComponent{
     render(){
         if (this.props.item != null){
             const { author, title, ISBN } = this.props.item;
-            var openLibraryButton = null;
-
-            if (this.props.item.openLibraryInfoUrl)
-                openLibraryButton = <Button color="primary" onClick={ () => window.open(this.props.item.openLibraryInfoUrl, "_blank") }>View</Button>;
-            else
-                openLibraryButton = <Button color="primary" onClick={ () => this.props.itemsFetchOpenLibrary(this.props.item) }>Get Link</Button>;
 
             return (
                 <Card className="library-item">
@@ -26,7 +20,12 @@ class Item extends PureComponent{
                         <CardText>
                             <p>ISBN: { this.getValue(ISBN) }</p>
                             <p>More information will be populated here</p>
-                            Open Library: { openLibraryButton }
+                            <Button
+                                className="library-item-openlibrary"
+                                color="primary"
+                                onClick={ () => this.props.itemsViewInOpenLibrary(this.props.item) }>
+                                Open Library
+                            </Button>
                         </CardText>
                     </CardBody>
                 </Card>

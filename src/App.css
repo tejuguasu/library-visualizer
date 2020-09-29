@@ -71,3 +71,15 @@
   margin: 0px;
   padding: 10px;
 }
+
+.library-item-openlibrary {
+  margin: 5px;
+  padding: 0px;
+  height: 30px;
+}
+
+.library-serach-btn {
+  margin: 5px;
+  padding: 0px;
+  height: 30px;
+}
